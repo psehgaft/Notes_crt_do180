@@ -201,6 +201,5 @@ Below is a list of commands that you need to be **AWARE OF** because you will **
 
 ## Conclusion
 
-I hope these tips were helpful and I wish you all to pass your exams and be certified as soon as possible. Stay safe and feel free to contact me @ youssef.negm@ibm.com or catch me at slack for any inquires.
-
+I hope these tips were helpful and I wish you all to pass your exams and be certified as soon as possible. 
 
