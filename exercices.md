@@ -3,6 +3,15 @@
 ```sh
 vi /etc/containers/registries.conf
 ```
+
+...
+[registries.search]
+registries = ['registry.do180.lab:5000', 'registry.access.redhat.com', 'registry.redhat.io', 'docker.io', 'quay.io']
+...
+[registries.insecure]
+registries = ['registry.do180.lab:5000']
+...
+
 # Pull image
 
 ```sh
