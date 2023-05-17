@@ -1,0 +1,73 @@
+podman exec -it httpd-basic /bin/bash
+
+podman ps --format="{{.ID}} {{.Names}} {{.Status}}"
+
+podman cp /home/student/DO180/labs/manage-lifecycle/db.sql mysql:/
+
+podman exec mysql /bin/bash -c 'mysql -uuser1 -pmypa55 items < /db.sql'
+
+
+mkdir /$PATH
+sudo semanage fcontext -a -t container_file_t '/$PATH(/.*)?'
+sudo restorecon -Rv /$PATH
+podman unshare chown -R 27:27 /$PATH
+
+podman save [-o FILE_NAME] IMAGE_NAME[:TAG]
+podman load [-i FILE_NAME]
+
+podman commit [OPTIONS] CONTAINER [REPOSITORY[:PORT]/]IMAGE_NAME[:TAG]
+podman commit -a 'Your Name' official-nginx do180/mynginx:v1.0-SNAPSHOT
+
+podman inspect -f "{{range .Mounts}}{{println .Destination}}{{end}}" CONTAINER_NAME/ID
+
+podman push [OPTIONS] IMAGE [DESTINATION]
+
+podman exec -it [CONTAINER]
+
+
+------------------------------
+# This is a comment line 
+FROM ubi8/ubi:8.3 
+LABEL description="This is a custom httpd container image" 
+MAINTAINER John Doe <jdoe@xyz.com> 
+RUN yum install -y httpd 
+EXPOSE 80 
+ENV LogLevel "info" 
+ADD http://someserver.com/filename.pdf /var/www/html 
+COPY ./src/ /var/www/html/ 
+USER apache 
+ENTRYPOINT ["/usr/sbin/httpd"] 
+CMD ["-D", "FOREGROUND"] 
+------------------
+
+---------------------------------
+FROM registry.access.redhat.com/ubi9/nginx-120:1-39
+RUN echo "It is pitch black. \
+You are likely to be eaten by a grue." >> index.html
+CMD nginx -g "daemon off;"
+------------------
+
+
+podman build -t NAME:TAG  DIR
+
+podman build --layers=false -t do180/custom-apache .
+
+
+oc new-app --template=mysql-persistent -p MYSQL_USER=user1 -p MYSQL_PASSWORD=mypa55 -p MYSQL_DATABASE=testdb -p MYSQL_ROOT_PASSWORD=r00tpa55 -p VOLUME_CAPACITY=10Gi
+
+
+oc port-forward mysql-1-5vfn4 3306:3306
+
+oc new-app php:7.3 --name=php-helloworld https://github.com/
+oc new-app php:7.3~https://github.com/RedHatTraining/DO180-apps --context-dir temps --name temps
+
+oc start-build php-helloworld
+
+
+oc describe template mysql-persistent -n openshift
+oc process --parameters mysql-persistent -n openshift
+
+oc process -o yaml -f filename  > myapp.yaml
+
+
+oc adm policy add-scc-to-user anyuid -z default
