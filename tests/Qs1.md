@@ -1,5 +1,5 @@
 
-# 📘 Podman & OpenShift Quiz
+# Podman & OpenShift Quiz
 
 Each question has 3 options. **Only one is correct.**
 
